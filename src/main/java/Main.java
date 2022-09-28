@@ -25,11 +25,14 @@ public class Main {
         final ExecutorService threadPool2 = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         Integer task = threadPool.invokeAny(list);
         Integer task2 = threadPool2.invokeAny(list);
-//        List<Future<Integer>> task3 = threadPool2.invokeAll(list);
+        List<Future<Integer>> task3 = threadPool2.invokeAll(list);
 
         System.out.println("Количество сообщений в одном потоке 1: " + task);
         System.out.println("Количество сообщений в одном потоке 2: " + task2);
-//        System.out.println("Количество сообщений в одном потоке 3: " + task3);
+        for (Future<Integer> integerFuture : task3) {
+            System.out.println("Третий способ получить значения: " + integerFuture.get());
+        }
+
         threadPool.shutdown();
         threadPool2.shutdown();
     }
